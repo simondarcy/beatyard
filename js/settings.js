@@ -1,0 +1,2 @@
+var Aquaplane = {};
+var myHealthBar;
