@@ -1,0 +1,12 @@
+
+{
+    "name": "BeatYard Boogie",
+    "short_name": "eatYard Boogie",
+    "icons": [],
+    "start_url": "/?homescreen=1",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "landscape",
+    "background_color": "#29C4DC",
+    "theme_color": "#29C4DC"
+  }

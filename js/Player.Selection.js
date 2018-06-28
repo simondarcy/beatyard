@@ -1,73 +1,63 @@
-Aquaplane.PlayerSelection = function () {};
 
-var players = {
-    'Tito':{
-        'image':'tito.png'
-    },
-    'Germaine':{
-        image:'germaine.png'
-    },
-    'Jackie':{
-        image:'jackie.png'
-    },
-    'Marlon':{
-        image:'marlon.png'
-    }
-};
 
-Aquaplane.PlayerSelection.prototype = {
+var dist = 175;
+var selectedAct = "";
 
+
+var acts = [
+    {name:'Orbital',frame:0,tune:"halcyon", key:'orbital'},
+    {name:'Little Dragon',frame:1,tune:"ritual", key:'little-dragon'},
+    {name:'The Jacksons',frame:2,tune:"abc", key:'jacksons'},
+    {name:'Kamasi Washington',frame:3,tune:"truth", key:'kamasi'}
+]
+    
+    
+
+
+var PlayerSelection = {
 
     preload: function () {
+        
 
+        //loading text
+        textStyle = {
+            font: '32px Arial',
+            fill: '#ffffff',
+            align: 'center',
+            boundsAlignH: "center",
+            boundsAlignV: "middle"
+        };
+        loadingText = game.add.text(game.world.centerX, game.world.centerY, 'Loading...', textStyle);
+        loadingText.anchor.set(0.5);
 
-        game.load.spritesheet('waves', 'waves-2.png', 16, 6);
-        game.load.image('theme1', 'tito.png');
-        game.load.image('theme2', 'marlon.png');
-        game.load.image('theme3', 'jackie.png');
-        game.load.image('theme4', 'germaine.png');
+        
+
     },
 
     create: function () {
 
+        loadingText.destroy();
 
+        var sea = game.add.sprite(0, game.height, 'sea');
+        sea.anchor.set(0, 1);
 
-        /* waves */
-        //  Let's create some waves (harmless eye candy)
-        //
-        //  Divide screen vertically into 520px / 8 layers = 65px per layer
-        //  Place 8 waves per layer (8*8 total)
-
-        noOfLayers = 10;
-
-        var area = new Phaser.Rectangle(0, 0, this.game.width, this.game.height);
-        this.layer = this.add.group();
-        this.layer.inputEnableChildren = true;
-        for (var i = 1; i <= noOfLayers; i++)
-        {
-            for (var w = 0; w < noOfLayers; w++)
-            {
-                var wave = this.layer.create(area.randomX, area.randomY, 'waves', this.rnd.between(0, 2));
-                wave.anchor.y = -1.5;
-                this.physics.arcade.enable(wave);
-                wave.body.velocity.x = -120 + (i * -30);
-            }
-
-            area.y += 65;
-        }
-
-
-
+        var ribbon = this.add.bitmapText(game.world.centerX, 0, 'blanch', 'Select YO CREW', 64);
+        ribbon.anchor.set(0.5, 0);
+        
         //array of all available themes
         var themes = [];
-        themes.push(game.add.sprite(0, 0, 'theme1'));
-        themes.push(game.add.sprite(0, 0, 'theme2'));
-        themes.push(game.add.sprite(0, 0, 'theme3'));
-        themes.push(game.add.sprite(0, 0, 'theme4'));
+        
+        acts.forEach(function(act, idx){
+            themes.push(game.add.sprite(0, 0, 'logos', idx));
+        });
+
+        //artist name text
+
+        var name = this.add.bitmapText(game.world.centerX, game.height-settings.nameOffset, 'blanch', acts[0].name, 50);
+        name.anchor.set(0.5, 1);
 
         //number of themes
         var totalThemes = themes.length;
-
 
         //the selected theme
         var prime = 0;
@@ -77,11 +67,10 @@ Aquaplane.PlayerSelection.prototype = {
 
         //initial setup; all items on the right side; anchor set to mid;
         themes.forEach(function (item) {
-            item.anchor.setTo(0.5, 0.5);
+            item.anchor.setTo(0.5);
             item.x = game.width + 150;
             item.y = game.height / 2;
             item.inputEnabled = true;
-
             item.events.onInputDown.add(clickListener, this);
         });
 
@@ -92,13 +81,13 @@ Aquaplane.PlayerSelection.prototype = {
 
             //check if there is another theme available to display on the right side; if yes then position it
             if (prime < (totalThemes - 1)) {
-                themes[prime + 1].x = game.width / 2 + 67 + 75;
+                themes[prime + 1].x = game.width / 2 + 67 + dist;
                 themes[prime + 1].scale.setTo(0.5, 0.5);
             }
 
             //check if there is another theme available to display on the left side; if yes then position it
             if (prime > 0) {
-                themes[prime - 1].x = game.width / 2 - 67 - 75;
+                themes[prime - 1].x = game.width / 2 - 67 - dist;
                 themes[prime - 1].scale.setTo(0.5, 0.5);
             }
         }
@@ -107,9 +96,9 @@ Aquaplane.PlayerSelection.prototype = {
         setToPosition(prime);
 
         //predefined x positions for the 3 visible cards
-        var xleft = game.width / 2 - 67 - 75;
+        var xleft = game.width / 2 - 67 - dist;
         var xprime = game.width / 2;
-        var xright = game.width / 2 + 67 + 75;
+        var xright = game.width / 2 + 67 + dist;
 
         //move to next theme
         function nextTheme() {
@@ -164,8 +153,8 @@ Aquaplane.PlayerSelection.prototype = {
 
         //click on theme listener
         function clickListener(el) {
-            console.log(themes.indexOf(el));
             var clickedPos = themes.indexOf(el);
+            name.setText(acts[themes.indexOf(el)].name);
             if (clickedPos > prime) {
                 //move to left
                 nextTheme();
@@ -174,17 +163,23 @@ Aquaplane.PlayerSelection.prototype = {
                 previousTheme();
             }
             else{
-                game.state.start('Aquaplane.Interstitial');
+                selectedAct = acts[themes.indexOf(el)];
+                
+                gtag('event', 'selection', {
+                    'event_category' : 'Band',
+                    'event_label' : selectedAct.name
+                  });
+                game.state.start('Preloader');
             }
         }
+
+
+        gtag('event', 'Player Selection Stage');
 
     },
 
     update: function () {
 
-        this.layer.forEachAlive(function(item){
-            if (item.x < -32) item.x = this.rnd.between(this.game.width, this.game.height);
-        }, this);
 
     }
 

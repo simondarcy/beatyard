@@ -6,81 +6,97 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge"> <!-- † -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
 
-    <title>The Beatyard Boogie</title>
+    <title>Beatyard Boogie - Earn up to 20% off tickets to The Beatyard Festival</title>
+
+    <link rel="dns-prefetch preconnect" href="//simondarcyonline.com">
+    <link rel="dns-prefetch preconnect" href="//the-beatyard.com">
+    <link rel="dns-prefetch preconnect" href="//www.googletagmanager.com/">
+
+    <link rel="preload" href="styles/fonts/blanch_caps-webfont.eot" as="font">
+    <link rel="preload" href="styles/fonts/blanch_caps-webfont.svg" as="font">
+    <link rel="preload" href="styles/fonts/blanch_caps-webfont.ttf" as="font">
+    <link rel="preload" href="styles/fonts/blanch_caps-webfont.woff" as="font">
+    <link rel="preload" href="styles/style.css" as="style">
+    <link rel="preload" href="assets/sea.png" as="image">
+
 
     <meta name="application-name" content="The Beatyard Boogie">
     <meta name="theme-color" content="#40a2da">
-    <meta name="description" content="The Beatyard Boogie starring The Jacksons">
+    <meta name="description" content="Play Beatyard Boogie and earn up to 20% off tickets to the Beatyard festival taking place on Dun Laoghaire harbour, August 3rd to 5th">
+
+    <link rel="apple-touch-icon" sizes="128x128" href="assets/app-icon.png">
 
     <meta name="HandheldFriendly" content="true" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title" content="The Beatyard Boogie">
+    <meta name="apple-mobile-web-app-title" content="Beatyard Boogie">
     <meta name="google" content="notranslate">
-    <meta name="subject" content="The Beatyard Boogie starring The Jacksons">
+    <meta name="subject" content="Beatyard Boogie">
     <meta name="rating" content="General">
 
-    <meta property="og:url" content="http://www.simondarcyonline.com/beatyard/">
+    <meta property="og:url" content="http://www.the-beatyard.com/game/">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="The Beatyard Boogie">
-    <meta property="og:description" content="The Beatyard Boogie starring The Jacksons">
-    <meta property="og:image" content="http://www.simondarcyonline.com/sexton/assets/img/social.png">
+    <meta property="og:title" content="Up to 20% off Beatyard Tickets! Play Beatyard Boogie!">
+    <meta property="og:description" content="Play Beatyard Boogie and earn up to 20% off tickets to the Beatyard festival taking place on Dun Laoghaire harbour, August 3rd to 5th">
+    <meta property="og:image" content="http://www.the-beatyard.com/game/social/fb.png">
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:site_name" content="simondarcyonline.com">
+    <meta property="og:site_name" content="the-beatyard.com">
     <meta property="og:locale" content="en_US">
     <meta property="article:author" content="Simon Darcy">
 
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@sidarcy">
-    <meta name="twitter:creator" content="@sidarcy">
-    <meta name="twitter:url" content="http://www.simondarcyonline.com/beatyard/">
-    <meta name="twitter:title" content="The Beatyard Boogie">
-    <meta name="twitter:description" content="The Beatyard Boogie starring The Jacksons">
-    <meta name="twitter:image" content="http://www.simondarcyonline.com/sexton/assets/img/social-twitter.png">
+    <meta name="twitter:site" content="@BeatYard">
+    <meta name="twitter:creator" content="@BeatYard">
+    <meta name="twitter:url" content="http://www.the-beatyard.com/game/">
+    <meta name="twitter:title" content="Play Beatyard Boogie">
+    <meta name="twitter:description" content="Play now and earn up to 20% off Beatyard tickets!">
+    <meta name="twitter:image" content="http://www.the-beatyard.com/game/social/fb.png">
 
     <link rel="me" href="https://google.com/profiles/sidarcy" type="text/html">
     <link rel="me" href="mailto:sidarcy@gmail.com">
 
     <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
 
+    <link rel="stylesheet" href="styles/style.css?v=9.2" />
 
-    <style type="text/css">
-        body{
-            margin: 0;
-            padding: 0;
-            background: #40a2da;
-        }
-
-        canvas, #game{
-
-        }
-
-        @media (min-width: 800px) {
-            body{
-       
-            }
-
-        }
-
-    </style>
-
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/phaser/2.6.1/phaser.min.js"></script>
+    <script type="text/javascript" src="js/phaser.min.js"></script>
+    <script src="js/phaser-virtual-joystick.min.js" type="text/javascript"></script>
 </head>
 
 <body>
 
+    <div id="flip"></div>
+    <div id="splash">
+        <div class="inner">
+            <h3>Bodytonic presents</h3>
+            <img src="assets/logo-v2.png"/>
+            <button>Tap to play!</button>
+        </div>
+    </div>
 
-<div id="game"></div>
+    <div id="game"></div>
+    <a class="home-link" href="http://www.the-beatyard.com/">Home</a>
+
+<script type="text/javascript" src="js/settings.js?v=9.2"></script>
+<script type="text/javascript" src="js/preloader.js?v=9.2"></script>
+<script type="text/javascript" src="js/Player.Selection.js?v=9.2"></script>
+<script type="text/javascript" src="js/instructions.js?v=9.2"></script>
+<script type="text/javascript" src="js/game.js?v=9.2"></script>
+<script type="text/javascript" src="js/Game.Over.js?v=9.2"></script>
+<script type="text/javascript" src="js/bootstrap.js?v=9.2"></script>
 
 
-<script type="text/javascript" src="js/HealthBar.standalone.js?v=r5"></script>
-<script type="text/javascript" src="js/settings.js"></script>
-<script type="text/javascript" src="js/Main.Menu.js"></script>
-<script type="text/javascript" src="js/Player.Selection.js"></script>
-<script type="text/javascript" src="js/game.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121402456-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-121402456-1');
+</script>
+
 
 </body>
 </html>
